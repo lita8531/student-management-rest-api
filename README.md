@@ -1,20 +1,16 @@
 # Student Management REST API
 
-Student Management REST API adalah aplikasi untuk mengelola data siswa menggunakan Node.js, Express.js, dan MySQL.
+## 1. Nama Aplikasi
 
-## Fitur
+Student Management REST API
 
-- Menampilkan daftar siswa
-- Menampilkan detail siswa
-- Menambahkan siswa
-- Mengubah data siswa
-- Menghapus siswa
-- Loading data
-- Pesan sukses dan error
-- Konfirmasi sebelum menghapus
-- Menampilkan response API pada halaman
+## 2. Deskripsi Aplikasi
 
-## Teknologi
+Student Management REST API adalah aplikasi untuk mengelola data siswa menggunakan REST API dengan Node.js, Express.js, dan MySQL.
+
+Aplikasi ini memiliki fitur untuk menampilkan, menambahkan, mengubah, dan menghapus data siswa.
+
+## 3. Teknologi yang Digunakan
 
 - Node.js
 - Express.js
@@ -22,20 +18,28 @@ Student Management REST API adalah aplikasi untuk mengelola data siswa menggunak
 - HTML
 - CSS
 - JavaScript
+- Git & GitHub
 
-## REST API
+## 4. Cara Menjalankan Backend
 
-| Method | Endpoint | Fungsi |
-|---|---|---|
-| GET | `/api/siswa` | Menampilkan semua siswa |
-| GET | `/api/siswa/:id` | Menampilkan siswa berdasarkan ID |
-| POST | `/api/siswa` | Menambahkan siswa |
-| PUT | `/api/siswa/:id` | Mengubah data siswa |
-| DELETE | `/api/siswa/:id` | Menghapus siswa |
-
-## Cara Menjalankan
-
-Install dependency:
+1. Pastikan Node.js dan MySQL sudah terinstall.
+2. Buka folder project menggunakan VS Code.
+3. Buka terminal pada folder project.
+4. Install dependency dengan perintah:
 
 ```bash
 npm install
+
+## 7. Screenshot Aplikasi
+screenshot-aplikasi.png
+getsemua.png
+post.png
+put.png
+delete.png
+
+## 8. Identitas Pembuat
+
+**Nama:** Nurlita  
+**Kelas:** XII RPL  
+**Jurusan:** Rekayasa Perangkat Lunak (RPL)  
+**Sekolah:** SMK Bina Putra Mandiri
