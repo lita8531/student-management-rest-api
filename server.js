@@ -283,3 +283,5 @@ app.listen(port, () => {
     );
 
 });
+
+// Project ready for GitHub
