@@ -17,6 +17,9 @@ app.get('/', (req, res) => {
     res.send('Student Management System berhasil berjalan!');
 });
 
+// ===============================
+// CRUD DATA SISWA
+// ===============================
 
 // ===============================
 // GET SEMUA SISWA
