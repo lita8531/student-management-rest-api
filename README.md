@@ -30,16 +30,21 @@ Aplikasi ini memiliki fitur untuk menampilkan, menambahkan, mengubah, dan mengha
 ```bash
 npm install
 
-## 7. Screenshot Aplikasi
-screenshot-aplikasi.png
-getsemua.png
-post.png
-put.png
-delete.png
+## Struktur Project
 
-## 8. Identitas Pembuat
-
-**Nama:** Nurlita  
-**Kelas:** XII RPL  
-**Jurusan:** Rekayasa Perangkat Lunak (RPL)  
-**Sekolah:** SMK Bina Putra Mandiri
+student_management_Rest_Api/
+├── config/
+│   └── database.js          # Konfigurasi dan koneksi ke database MySQL
+├── routes/                  # Folder untuk routing REST API
+├── fublic/                  # Folder frontend
+│   └── index.html           # Halaman utama aplikasi
+├── node_modules/            # Folder dependensi Node.js
+├── image.png                # Screenshot frontend
+├── getsemua.png             # Screenshot pengujian GET
+├── post.png                 # Screenshot pengujian POST
+├── put.png                  # Screenshot pengujian PUT
+├── delete.png               # Screenshot pengujian DELETE
+├── package.json             # Informasi dan dependensi project
+├── package-lock.json        # Lock file dependensi
+├── README.md                # Dokumentasi project
+└── server.js                # File utama server dan REST API
