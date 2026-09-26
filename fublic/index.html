@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Management System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef3f8;
+            color: #26364d;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            background: linear-gradient(135deg, #536f9f, #7894bd);
+            color: white;
+            padding: 25px 7%;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, .08);
+        }
+
+        .navbar h1 {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .navbar p {
+            font-size: 14px;
+            opacity: .9;
+        }
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+            width: 90%;
+            max-width: 1250px;
+            margin: 35px auto;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .welcome h2 {
+            font-size: 25px;
+            margin-bottom: 7px;
+        }
+
+        .welcome p {
+            color: #748198;
+        }
+
+        /* =========================
+           CARD
+        ========================= */
+
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 28px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 30px rgba(40, 60, 90, .08);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 23px;
+        }
+
+        .card-header h2 {
+            font-size: 21px;
+        }
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: span 2;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #3d4d63;
+        }
+
+        input {
+            padding: 13px 15px;
+            border: 1px solid #d6deea;
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+            background: #fafbfd;
+            transition: .2s;
+        }
+
+        input:focus {
+            border-color: #6888b8;
+            box-shadow: 0 0 0 3px rgba(104, 136, 184, .12);
+            background: white;
+        }
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .button-area {
+            display: flex;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        button {
+            border: none;
+            padding: 11px 18px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: .2s;
+        }
+
+        button:hover {
+            opacity: .88;
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: #5e7eaf;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #e5e9ef;
+            color: #526074;
+        }
+
+        .btn-edit {
+            background: #d2a85b;
+            color: white;
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        .btn-delete {
+            background: #c87575;
+            color: white;
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        /* =========================
+           MESSAGE
+        ========================= */
+
+        .message {
+            display: none;
+            padding: 14px 17px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .success {
+            background: #e4f2e8;
+            color: #39734c;
+        }
+
+        .error {
+            background: #f8e3e3;
+            color: #944c4c;
+        }
+
+        /* =========================
+           LOADING
+        ========================= */
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 25px;
+            color: #708096;
+            font-weight: bold;
+        }
+
+        /* =========================
+           TABLE
+        ========================= */
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #edf2f8;
+            color: #536f9e;
+            padding: 14px;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #edf0f4;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: #fafcff;
+        }
+
+        .action {
+            display: flex;
+            gap: 7px;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 35px !important;
+            color: #8994a5;
+        }
+
+        .total-badge {
+            background: #edf2f8;
+            color: #5875a3;
+            padding: 8px 13px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* =========================
+           RESPONSE API
+        ========================= */
+
+        .response-box {
+            background: #f6f8fb;
+            border: 1px solid #e0e5ed;
+            border-radius: 12px;
+            padding: 18px;
+            overflow-x: auto;
+        }
+
+        .response-box pre {
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-family: Consolas, monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #40516a;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .container {
+                width: 94%;
+            }
+
+            .navbar {
+                padding: 22px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: span 1;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .card-header {
+                gap: 10px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <div class="navbar">
+
+        <h1>Student Management System</h1>
+
+        <p>
+            Manajemen data siswa berbasis REST API
+        </p>
+
+    </div>
+
+
+    <div class="container">
+
+
+        <!-- =========================
+             WELCOME
+        ========================= -->
+
+        <div class="welcome">
+
+            <h2>Data Siswa 👋</h2>
+
+            <p>
+                Kelola data siswa dengan mudah melalui sistem ini.
+            </p>
+
+        </div>
+
+
+        <!-- =========================
+             MESSAGE
+        ========================= -->
+
+        <div id="message" class="message"></div>
+
+
+        <!-- =========================
+             FORM SISWA
+        ========================= -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h2 id="formTitle">
+                    Tambah Siswa
+                </h2>
+
+            </div>
+
+
+            <form id="studentForm">
+
+                <input
+                    type="hidden"
+                    id="studentId"
+                >
+
+
+                <div class="form-grid">
+
+
+                    <!-- NIS -->
+
+                    <div class="form-group">
+
+                        <label>
+                            NIS
+                        </label>
+
+                        <input
+                            type="text"
+                            id="nis"
+                            placeholder="Masukkan NIS"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- NAMA -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Nama
+                        </label>
+
+                        <input
+                            type="text"
+                            id="nama"
+                            placeholder="Masukkan nama siswa"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- KELAS -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Kelas
+                        </label>
+
+                        <input
+                            type="text"
+                            id="kelas"
+                            placeholder="Contoh: XII RPL 1"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- JURUSAN -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Jurusan
+                        </label>
+
+                        <input
+                            type="text"
+                            id="jurusan"
+                            placeholder="Contoh: Rekayasa Perangkat Lunak"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- ALAMAT -->
+
+                    <div class="form-group full">
+
+                        <label>
+                            Alamat
+                        </label>
+
+                        <input
+                            type="text"
+                            id="alamat"
+                            placeholder="Masukkan alamat siswa"
+                            required
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="button-area">
+
+                    <button
+                        type="submit"
+                        class="btn-primary"
+                        id="submitButton"
+                    >
+                        + Tambah Siswa
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="btn-secondary"
+                        id="cancelButton"
+                        onclick="resetForm()"
+                        style="display:none;"
+                    >
+                        Batal
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+
+        <!-- =========================
+             DAFTAR SISWA
+        ========================= -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h2>
+                    Daftar Siswa
+                </h2>
+
+                <span class="total-badge">
+
+                    Total:
+                    <span id="totalSiswa">
+                        0
+                    </span>
+
+                </span>
+
+            </div>
+
+
+            <!-- LOADING -->
+
+            <div
+                id="loading"
+                class="loading"
+            >
+                ⏳ Memuat data siswa...
+            </div>
+
+
+            <!-- TABLE -->
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>NIS</th>
+
+                            <th>Nama</th>
+
+                            <th>Kelas</th>
+
+                            <th>Jurusan</th>
+
+                            <th>Alamat</th>
+
+                            <th>Aksi</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="studentTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             RESPONSE API
+        ========================= -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h2>
+                    Response API
+                </h2>
+
+            </div>
+
+
+            <div class="response-box">
+
+                <pre id="apiResponse">Belum ada response API...</pre>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+<script>
+
+
+/* =====================================================
+   URL API
+===================================================== */
+
+const API_URL = 'http://localhost:3000/api/siswa';
+
+
+
+/* =====================================================
+   MENAMPILKAN RESPONSE API
+===================================================== */
+
+function showApiResponse(data) {
+
+    document.getElementById('apiResponse').textContent =
+        JSON.stringify(data, null, 4);
+
+}
+
+
+
+/* =====================================================
+   PESAN SUKSES / ERROR
+===================================================== */
+
+function showMessage(message, type) {
+
+    const messageBox =
+        document.getElementById('message');
+
+
+    messageBox.textContent = message;
+
+
+    messageBox.className =
+        'message ' + type;
+
+
+    messageBox.style.display =
+        'block';
+
+
+    setTimeout(() => {
+
+        messageBox.style.display =
+            'none';
+
+    }, 3000);
+
+}
+
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+function showLoading(status) {
+
+    document.getElementById('loading').style.display =
+        status ? 'block' : 'none';
+
+}
+
+
+
+/* =====================================================
+   GET DATA SISWA
+===================================================== */
+
+async function getStudents() {
+
+    showLoading(true);
+
+
+    try {
+
+        const response =
+            await fetch(API_URL);
+
+
+        const result =
+            await response.json();
+
+
+        /* tampilkan response API */
+
+        showApiResponse(result);
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.message ||
+                'Gagal mengambil data'
+            );
+
+        }
+
+
+        /* tampilkan data ke tabel */
+
+        displayStudents(result.data);
+
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+
+        showMessage(
+            'Gagal mengambil data siswa: ' +
+            error.message,
+            'error'
+        );
+
+    }
+
+    finally {
+
+        showLoading(false);
+
+    }
+
+}
+
+
+
+/* =====================================================
+   MENAMPILKAN DATA KE TABLE
+===================================================== */
+
+function displayStudents(students) {
+
+    const table =
+        document.getElementById('studentTable');
+
+
+    const total =
+        document.getElementById('totalSiswa');
+
+
+    table.innerHTML = '';
+
+
+    total.textContent =
+        students.length;
+
+
+    /* kalau kosong */
+
+    if (students.length === 0) {
+
+        table.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="7"
+                    class="empty"
+                >
+                    Belum ada data siswa.
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    /* tampilkan setiap siswa */
+
+    students.forEach(student => {
+
+        const row =
+            document.createElement('tr');
+
+
+        row.innerHTML = `
+
+            <td>
+                ${student.id}
+            </td>
+
+            <td>
+                ${student.nis}
+            </td>
+
+            <td>
+                <strong>
+                    ${student.nama}
+                </strong>
+            </td>
+
+            <td>
+                ${student.kelas}
+            </td>
+
+            <td>
+                ${student.jurusan}
+            </td>
+
+            <td>
+                ${student.alamat}
+            </td>
+
+            <td>
+
+                <div class="action">
+
+
+                    <button
+                        class="btn-edit"
+                        onclick='editStudent(${JSON.stringify(student)})'
+                    >
+                        Edit
+                    </button>
+
+
+                    <button
+                        class="btn-delete"
+                        onclick="deleteStudent(${student.id})"
+                    >
+                        Hapus
+                    </button>
+
+
+                </div>
+
+            </td>
+
+        `;
+
+
+        table.appendChild(row);
+
+    });
+
+}
+
+
+
+/* =====================================================
+   POST + PUT
+===================================================== */
+
+document
+.getElementById('studentForm')
+.addEventListener(
+    'submit',
+    async function(event) {
+
+
+        event.preventDefault();
+
+
+        const id =
+            document.getElementById('studentId').value;
+
+
+        /* ambil data form */
+
+        const data = {
+
+            nis:
+                document.getElementById('nis').value,
+
+            nama:
+                document.getElementById('nama').value,
+
+            kelas:
+                document.getElementById('kelas').value,
+
+            jurusan:
+                document.getElementById('jurusan').value,
+
+            alamat:
+                document.getElementById('alamat').value
+
+        };
+
+
+        try {
+
+            let response;
+
+
+            /* =================================
+               PUT - EDIT
+            ================================= */
+
+            if (id) {
+
+                response =
+                    await fetch(
+                        `${API_URL}/${id}`,
+                        {
+
+                            method: 'PUT',
+
+                            headers: {
+                                'Content-Type':
+                                    'application/json'
+                            },
+
+                            body:
+                                JSON.stringify(data)
+
+                        }
+                    );
+
+            }
+
+
+            /* =================================
+               POST - TAMBAH
+            ================================= */
+
+            else {
+
+                response =
+                    await fetch(
+                        API_URL,
+                        {
+
+                            method: 'POST',
+
+                            headers: {
+                                'Content-Type':
+                                    'application/json'
+                            },
+
+                            body:
+                                JSON.stringify(data)
+
+                        }
+                    );
+
+            }
+
+
+            /* ambil response */
+
+            const result =
+                await response.json();
+
+
+            /* tampilkan response API */
+
+            showApiResponse(result);
+
+
+            /* cek error */
+
+            if (!response.ok) {
+
+                throw new Error(
+                    result.message ||
+                    'Request gagal'
+                );
+
+            }
+
+
+            /* pesan sukses */
+
+            showMessage(
+                result.message,
+                'success'
+            );
+
+
+            /* reset form */
+
+            resetForm();
+
+
+            /* refresh data */
+
+            getStudents();
+
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+
+            showMessage(
+                error.message ||
+                'Terjadi kesalahan',
+                'error'
+            );
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   EDIT SISWA
+===================================================== */
+
+function editStudent(student) {
+
+
+    document.getElementById('studentId').value =
+        student.id;
+
+
+    document.getElementById('nis').value =
+        student.nis;
+
+
+    document.getElementById('nama').value =
+        student.nama;
+
+
+    document.getElementById('kelas').value =
+        student.kelas;
+
+
+    document.getElementById('jurusan').value =
+        student.jurusan;
+
+
+    document.getElementById('alamat').value =
+        student.alamat;
+
+
+    /* ubah judul */
+
+    document.getElementById('formTitle').textContent =
+        'Edit Data Siswa';
+
+
+    /* ubah tombol */
+
+    document.getElementById('submitButton').textContent =
+        'Simpan Perubahan';
+
+
+    /* tampilkan batal */
+
+    document.getElementById('cancelButton').style.display =
+        'inline-block';
+
+
+    /* scroll ke atas */
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: 'smooth'
+
+    });
+
+}
+
+
+
+/* =====================================================
+   RESET FORM
+===================================================== */
+
+function resetForm() {
+
+
+    document
+        .getElementById('studentForm')
+        .reset();
+
+
+    document.getElementById('studentId').value =
+        '';
+
+
+    document.getElementById('formTitle').textContent =
+        'Tambah Siswa';
+
+
+    document.getElementById('submitButton').textContent =
+        '+ Tambah Siswa';
+
+
+    document.getElementById('cancelButton').style.display =
+        'none';
+
+}
+
+
+
+/* =====================================================
+   DELETE SISWA
+===================================================== */
+
+async function deleteStudent(id) {
+
+
+    /* konfirmasi */
+
+    const yakin =
+        confirm(
+            'Apakah kamu yakin ingin menghapus siswa ini?'
+        );
+
+
+    if (!yakin) {
+
+        return;
+
+    }
+
+
+    try {
+
+
+        /* DELETE */
+
+        const response =
+            await fetch(
+                `${API_URL}/${id}`,
+                {
+
+                    method: 'DELETE'
+
+                }
+            );
+
+
+        /* response */
+
+        const result =
+            await response.json();
+
+
+        /* tampilkan response API */
+
+        showApiResponse(result);
+
+
+        /* cek error */
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.message ||
+                'Gagal menghapus data'
+            );
+
+        }
+
+
+        /* pesan sukses */
+
+        showMessage(
+            result.message,
+            'success'
+        );
+
+
+        /* refresh */
+
+        getStudents();
+
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+
+        showMessage(
+            error.message ||
+            'Gagal menghapus data',
+            'error'
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   JALANKAN GET SAAT HALAMAN DIBUKA
+===================================================== */
+
+getStudents();
+
+
+</script>
+
+</body>
+
+</html>
