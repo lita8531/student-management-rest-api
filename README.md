@@ -34,17 +34,18 @@ npm install
 
 student_management_Rest_Api/
 ├── config/
-│   └── database.js          # Konfigurasi dan koneksi ke database MySQL
-├── routes/                  # Folder untuk routing REST API
-├── fublic/                  # Folder frontend
-│   └── index.html           # Halaman utama aplikasi
-├── node_modules/            # Folder dependensi Node.js
-├── image.png                # Screenshot frontend
-├── getsemua.png             # Screenshot pengujian GET
-├── post.png                 # Screenshot pengujian POST
-├── put.png                  # Screenshot pengujian PUT
-├── delete.png               # Screenshot pengujian DELETE
-├── package.json             # Informasi dan dependensi project
-├── package-lock.json        # Lock file dependensi
-├── README.md                # Dokumentasi project
-└── server.js                # File utama server dan REST API
+│   └── database.js              # Konfigurasi koneksi database MySQL
+├── fublic/
+│   └── index.html               # Halaman utama frontend
+├── screenshots/
+│   ├── api-get.png              # Screenshot pengujian GET
+│   ├── api-post.png             # Screenshot pengujian POST
+│   ├── api-put.png              # Screenshot pengujian PUT
+│   ├── api-delete.png           # Screenshot pengujian DELETE
+│   └── frontend.png             # Screenshot tampilan frontend
+├── node_modules/                # Dependensi Node.js
+├── .gitignore                   # File untuk mengabaikan file tertentu dari Git
+├── package.json                 # Informasi dan dependensi project
+├── package-lock.json            # Lock file dependensi
+├── README.md                    # Dokumentasi project
+└── server.js                    # File utama server dan REST API
